@@ -1,7 +1,8 @@
-package lang;
+package templates;
 
 public enum template {
-        
+    
+    // MARK: - HEAD_LINE
     THIS_LINE(""),
     LAST_LINE("");
 

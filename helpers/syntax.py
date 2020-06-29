@@ -9,6 +9,7 @@ class Syntax:
     lang = ""
     line = ""
     lastline = ""
+    headline = ""
 
     def __init__(self, lang):
         self.lang = lang
@@ -30,12 +31,12 @@ class Syntax:
     def generateClass(self):
         lang = self.lang
         ext = self.getExtension()
-        with open(current_dir + "/../lang/template." + ext, "r") as file:
+        with open(current_dir + "/../templates/template." + ext, "r") as file:
             content = file.read()
             replacewith = "MDIcons"
-            content = content.replace("template2", replacewith)
-            content = content.replace("template", replacewith)
-            content = content.replace("Template", replacewith)
+            array = ["templates", "template2", "template", "Template"]
+            for word in array:
+                content = content.replace(word, replacewith)
             return content
 
     def getUnicode(self, hex):
@@ -64,21 +65,28 @@ class Syntax:
         case = icon[self.getCase()]
         hex = icon[IconData.hex]
 
+        current = "THIS_LINE"
+        last = "LAST_LINE"
+        head = "HEAD_LINE"
+
         if self.line == "" or self.lastline == "":
             template = self.generateClass()
             for line in template.splitlines():
-                if "THIS_LINE" in line:
+                if current in line:
                     self.line = line
-                if "LAST_LINE" in line:
+                if last in line:
                     self.lastline = line
-                if self.line != "" and self.lastline != "":
+                if head in line:
+                    self.headline = line
+                if self.line != "" and self.lastline != "" and self.headline != "":
                     break
         
         enum = self.line
-        replace = "THIS_LINE"
+        replace = current
         if icon[IconData.count] == length:
             enum = self.lastline
-            replace = "LAST_LINE"
+            replace = last
         enum = enum.replace(replace, self.fixedIdentifier(case))
         enum = enum.replace("\"\"", "\"" + self.getUnicode(hex) + "\"")
-        return (enum, self.line + "\n" + self.lastline)
+        comment = self.headline.replace(head, icon[0][0].upper())
+        return (enum, comment, self.headline + "\n" + self.line + "\n" + self.lastline)

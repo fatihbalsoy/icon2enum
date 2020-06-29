@@ -50,10 +50,14 @@ def generateFile(syntax):
 		icons = getIcons()
 		replacing = ""
 		enums = ""
+		firstChar = ""
 		for icon in progressBar(icons, prefix = 'Progress:', suffix = 'Complete', length = 50):
 			enum = syntax.generateEnum(icon, len(icons))
+			if firstChar.lower() != icon[0][0]:
+				enums += enum[1] + "\n"
+				firstChar = icon[0][0]
 			enums += enum[0] + "\n"
-			replacing = enum[1]
+			replacing = enum[2]
 			time.sleep(0.00001)
 		
 		final = cl.replace(replacing, enums)
