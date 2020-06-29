@@ -48,12 +48,13 @@ class Syntax:
 
     def getCase(self):
         lang = self.getExtension()
-        if lang in ["swift", "cpp", "objc"]:
+        if lang in ["swift", "cpp", "objc", "dart"]:
             return IconData.camelcased
         if lang in ["java", "kt", "js", "rb", "py"]:
             return IconData.snakecased
         if lang in ["ts", "go"]:
             return IconData.uppercamelcased
+        return IconData.camelcased
 
     def fixedIdentifier(self, name):
         if name in ["import", "switch", "repeat", "protocol", "export", "delete", "null", "sync", "factory"]:
