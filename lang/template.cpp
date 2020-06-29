@@ -1,4 +1,8 @@
-enum MDIcon {
+#include <string>
+using std::string;
 
-%s
+class Template {
+    public:
+        string THIS_LINE = "";
+        string LAST_LINE = "";
 };

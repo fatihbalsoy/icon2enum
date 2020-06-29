@@ -1,6 +1,6 @@
 import Foundation
 
-enum MDIcon: String {
-
-%s
+enum template: String {
+    case THIS_LINE = ""
+    case LAST_LINE = ""
 }

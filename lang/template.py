@@ -1,5 +1,5 @@
 from enum import Enum
 
-class MDIcon(Enum):
-    
-%s
+class template(Enum):
+    THIS_LINE = ""
+    LAST_LINE = ""

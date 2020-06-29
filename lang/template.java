@@ -1,10 +1,13 @@
-public enum MDIcon {
+package lang;
+
+public enum template {
         
-%s
+    THIS_LINE(""),
+    LAST_LINE("");
 
     private String hex;
 
-    MDIcon(String iconHex) {
+    template(String iconHex) {
         this.hex = iconHex;
     }
 

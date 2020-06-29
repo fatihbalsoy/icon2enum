@@ -2,7 +2,9 @@ from bs4 import BeautifulSoup
 import urllib.request
 from helpers.syntax import *
 from helpers.icon import *
+from packages.progressbar import *
 import os.path
+import time
 
 
 current_dir = os.path.dirname(__file__)
@@ -18,7 +20,9 @@ def getIcons():
 	icons = icons1.split("},{")
 	
 	array = []
+	count = 0
 	for i in icons:
+		count += 1
 		cleaned = i.replace("{", "")
 		cleaned = cleaned.replace("}", "")
 		keys = cleaned.split("\"")
@@ -34,7 +38,7 @@ def getIcons():
 		
 		unicode = "\"\\u{" + hex + "}\""
 		array.append([name, hex, version, uppercamelcased,
-		camelcased, snakecased, unicode])
+		camelcased, snakecased, unicode, count])
 		
 	return array
 	
@@ -44,25 +48,20 @@ def generateFile(syntax):
 	with open("MDIcons." + ext, "w") as file:
 		cl = syntax.generateClass()
 		icons = getIcons()
+		replacing = ""
 		enums = ""
-		x = 0
-		for icon in icons:
-			enum = syntax.generateEnum(icon)
-			enums += "\t" + enum + "\n"
-			name = icon[IconData.name]
-			#print(f'{icon[IconData.name]}\r', end="")
-			#print('{}\r'.format(name), end="")
-			#print("Progress {:2.1%}".format(x / len(icons)), end="\r")
-			x += 1
-		print()
+		for icon in progressBar(icons, prefix = 'Progress:', suffix = 'Complete', length = 50):
+			enum = syntax.generateEnum(icon, len(icons))
+			enums += enum[0] + "\n"
+			replacing = enum[1]
+			time.sleep(0.00001)
 		
-		final = cl.replace("%s", enums)
-		#print(final)
+		final = cl.replace(replacing, enums)
 		file.write(final)
 		
 		
 print("Specify the language to be generated:")
 print("(swift, java, kotlin, c++, go, and etc.)")
-syntax = Syntax(input())
+syntax = Syntax(input().lower())
 generateFile(syntax)
 
