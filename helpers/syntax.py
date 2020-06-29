@@ -56,7 +56,7 @@ class Syntax:
             return IconData.uppercamelcased
 
     def fixedIdentifier(self, name):
-        if name in ["import", "switch", "repeat", "protocol", "export", "delete"]:
+        if name in ["import", "switch", "repeat", "protocol", "export", "delete", "null", "sync", "factory"]:
             return name + "_"
         return name
 
