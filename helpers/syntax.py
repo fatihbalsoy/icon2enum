@@ -41,7 +41,7 @@ class Syntax:
 
     def getUnicode(self, hex):
         lang = self.getExtension()
-        if lang in ["java", "kt", "py", "js"]:
+        if lang in ["java", "kt", "py", "js", "rb"]:
             return "\\u" + hex
         if lang == "cpp":
             return "\\" + hex

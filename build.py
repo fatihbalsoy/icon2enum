@@ -45,7 +45,10 @@ def getIcons():
 	
 def generateFile(syntax):
 	ext = syntax.getExtension()
-	with open("MDIcons." + ext, "w") as file:
+	filename = "MDIcons"
+	with open("source.txt", "w") as page:
+		page.write(str(soup))
+	with open(filename + "." + ext, "w") as file:
 		cl = syntax.generateClass()
 		icons = getIcons()
 		replacing = ""
@@ -62,6 +65,7 @@ def generateFile(syntax):
 		
 		final = cl.replace(replacing, enums)
 		file.write(final)
+		print("Generated " + str(len(icons)) + " Material Design Icons in " + filename + "." + ext)
 		
 		
 print("Specify the language to be generated:")
