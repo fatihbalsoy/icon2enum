@@ -8,9 +8,9 @@ import time
 
 
 current_dir = os.path.dirname(__file__)
-html_page = urllib.request.urlopen(
-    "http://cdn.materialdesignicons.com/5.3.45/")
-soup = BeautifulSoup(html_page, "html.parser")
+url = "http://cdn.materialdesignicons.com/"
+latest = "5.3.45"
+version = latest
 
 def createIcon(name, hex, version, count):
 	uppercamelcased = ''.join(word.title() for word in name.split('-'))
@@ -48,9 +48,11 @@ def getIcons():
 def generateFile(syntax):
 	ext = syntax.getExtension()
 	filename = "MDIcons"
+	suffix = str("+" + version) if version != latest else ""
+	finalname = filename + suffix + "." + ext
 	with open("source.txt", "w") as page:
 		page.write(str(soup))
-	with open(filename + "." + ext, "w") as file:
+	with open(finalname, "w") as file:
 		cl = syntax.generateClass()
 		icons = getIcons()
 		replacing = ""
@@ -67,11 +69,20 @@ def generateFile(syntax):
 		
 		final = cl.replace(replacing, enums)
 		file.write(final)
-		print("Generated " + str(len(icons)) + " Material Design Icons in " + filename + "." + ext)
+		print("Generated " + str(len(icons)) + " Material Design Icons in " + finalname)
 		
 		
 print("Specify the language to be generated:")
 print("(swift, java, kotlin, c++, go, and etc.)")
 syntax = Syntax(input().lower())
+print("Specify version of data set:")
+print("(Keep blank for latest version)")
+input_version = input()
+if input_version != "":
+	version = input_version
+	
+html_page = urllib.request.urlopen(url + version)
+soup = BeautifulSoup(html_page, "html.parser")
+
 generateFile(syntax)
 
