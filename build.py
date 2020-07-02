@@ -3,16 +3,20 @@ import urllib.request
 import json
 from helpers.syntax import *
 from helpers.icon import *
+from helpers.help import *
 from packages.progressbar import *
 import os.path
 import time
 
 
 current_dir = os.path.dirname(__file__)
+
 url = "http://cdn.materialdesignicons.com/"
 github = "https://raw.githubusercontent.com/Templarian/MaterialDesign/master/meta.json"
+
 latest = "5.3.45"
 data_version = latest
+
 tags = []
 authors = []
 
@@ -103,8 +107,7 @@ def generateFile(syntax):
 		final = cl.replace(replacing, enums)
 		file.write(final)
 		print("Generated " + str(len(icons)) + " Material Design Icons in " + finalname)
-		
-		
+				
 print("Specify the language to be generated:")
 print("(swift, java, kotlin, c++, go, and etc.)")
 syntax = Syntax(input().lower())
