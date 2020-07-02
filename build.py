@@ -13,6 +13,8 @@ url = "http://cdn.materialdesignicons.com/"
 github = "https://raw.githubusercontent.com/Templarian/MaterialDesign/master/meta.json"
 latest = "5.3.45"
 data_version = latest
+tags = []
+authors = []
 
 def createIcon(name, hex, version, count):
 	uppercamelcased = ''.join(word.title() for word in name.split('-'))
@@ -36,6 +38,7 @@ def getIcons():
 	count = 0
 	for i in icons:
 		count += 1
+		should_append = True
 		
 		if data_version != "master":
 			cleaned = i.replace("{", "")
@@ -49,8 +52,24 @@ def getIcons():
 			name = i["name"]
 			hex = i["codepoint"]
 			version = i["version"]
+			i_author = i["author"]
+			i_tags = i["tags"]
+			i_tags_joined = " / ".join(i_tags).split(" / ")
 			
-		array.append(createIcon(name, hex, version, count))
+			tag_bool = True
+			author_bool = True
+			if tags != []:
+				tag_bool = False
+				for tag in i_tags_joined:
+					if tag_bool == False:
+						tag_bool = True if tag.lower() in tags else False
+			if authors != []:
+				author_bool = True if i_author.lower() in authors else False
+				
+			should_append = tag_bool and author_bool
+		
+		if should_append == True:
+			array.append(createIcon(name, hex, version, count))
 	array.append(createIcon("blank", "F68C", "", count + 1))
 	
 	return array
@@ -94,6 +113,17 @@ print("(Latest, master, " + latest + ", and etc.)")
 input_version = input().lower()
 if not input_version in ["", "latest"]:
 	data_version = input_version
+	
+if input_version == "master":
+	print("\nFilter tags, separated by commas:")
+	input_tags = input().lower().split(",")
+	if input_tags != ['']:
+		tags = input_tags
+	
+	print("\nFilter authors, separated by commas:")
+	input_authors = input().lower().split(",")
+	if input_authors != ['']:
+		authors = input_authors
 	
 page_url = url + data_version if not data_version == "master" else github
 
