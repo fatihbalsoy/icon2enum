@@ -1,0 +1,7 @@
+FILE_NAME
+VERSION_LINE, ICON_COUNT
+Material Design Icons
+
+Generated on DATE_LINE
+Tags: TAG_LINE
+Authors: AUTHOR_LINE
