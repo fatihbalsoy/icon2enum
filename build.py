@@ -12,6 +12,14 @@ html_page = urllib.request.urlopen(
     "http://cdn.materialdesignicons.com/5.3.45/")
 soup = BeautifulSoup(html_page, "html.parser")
 
+def createIcon(name, hex, version, count):
+	uppercamelcased = ''.join(word.title() for word in name.split('-'))
+	camelcased = uppercamelcased[0].lower() + uppercamelcased[1:]
+	snakecased = '_'.join(word.title() for word in name.split('-'))
+	snakecased = snakecased.upper()
+	
+	unicode = "\"\\u{" + hex + "}\""
+	return [name, hex, version, uppercamelcased, camelcased, snakecased, unicode, count]
 
 def getIcons():
 	script = soup.findAll('script')[0]
@@ -31,14 +39,8 @@ def getIcons():
 		hex = keys[3]
 		version = keys[5]
 		
-		uppercamelcased = ''.join(word.title() for word in name.split('-'))
-		camelcased = uppercamelcased[0].lower() + uppercamelcased[1:]
-		snakecased = '_'.join(word.title() for word in name.split('-'))
-		snakecased = snakecased.upper()
-		
-		unicode = "\"\\u{" + hex + "}\""
-		array.append([name, hex, version, uppercamelcased,
-		camelcased, snakecased, unicode, count])
+		array.append(createIcon(name, hex, version, count))
+	array.append(createIcon("blank", "F68C", "", count + 1))
 		
 	return array
 	
@@ -61,7 +63,7 @@ def generateFile(syntax):
 				firstChar = icon[0][0]
 			enums += enum[0] + "\n"
 			replacing = enum[2]
-			time.sleep(0.00001)
+			#time.sleep(0.00001)
 		
 		final = cl.replace(replacing, enums)
 		file.write(final)
