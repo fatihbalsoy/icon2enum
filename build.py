@@ -71,6 +71,7 @@ def generateFile(syntax):
 		replacing = ""
 		enums = ""
 		firstChar = ""
+		print()
 		for icon in progressBar(icons, prefix = 'Progress:', suffix = 'Complete', length = 50):
 			enum = syntax.generateEnum(icon, len(icons))
 			if firstChar.lower() != icon[0][0]:
@@ -88,10 +89,10 @@ def generateFile(syntax):
 print("Specify the language to be generated:")
 print("(swift, java, kotlin, c++, go, and etc.)")
 syntax = Syntax(input().lower())
-print("Specify version of data set:")
-print("(Keep blank for latest version)")
-input_version = input()
-if input_version != "":
+print("\nSpecify version of data set:")
+print("(Latest, master, " + latest + ", and etc.)")
+input_version = input().lower()
+if not input_version in ["", "latest"]:
 	data_version = input_version
 	
 page_url = url + data_version if not data_version == "master" else github

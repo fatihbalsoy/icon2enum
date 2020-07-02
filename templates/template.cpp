@@ -1,9 +1,13 @@
+//
+//  HEAD_LINE
+//
+
 #include <string>
 using std::string;
 
 class Template {
     public:
-        // MARK: - HEAD_LINE
+        // MARK: - ALPHA_LINE
         string THIS_LINE = "";
         string LAST_LINE = "";
 };

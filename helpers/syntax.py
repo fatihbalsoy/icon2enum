@@ -9,7 +9,7 @@ class Syntax:
     lang = ""
     line = ""
     lastline = ""
-    headline = ""
+    alphaline = ""
 
     def __init__(self, lang):
         self.lang = lang
@@ -68,7 +68,7 @@ class Syntax:
 
         current = "THIS_LINE"
         last = "LAST_LINE"
-        head = "HEAD_LINE"
+        alpha = "ALPHA_LINE"
 
         if self.line == "" or self.lastline == "":
             template = self.generateClass()
@@ -77,9 +77,9 @@ class Syntax:
                     self.line = line
                 if last in line:
                     self.lastline = line
-                if head in line:
-                    self.headline = line
-                if self.line != "" and self.lastline != "" and self.headline != "":
+                if alpha in line:
+                    self.alphaline = line
+                if self.line != "" and self.lastline != "" and self.alphaline != "":
                     break
         
         enum = self.line
@@ -89,5 +89,5 @@ class Syntax:
             replace = last
         enum = enum.replace(replace, self.fixedIdentifier(case))
         enum = enum.replace("\"\"", "\"" + self.getUnicode(hex) + "\"")
-        comment = self.headline.replace(head, icon[0][0].upper())
-        return (enum, comment, self.headline + "\n" + self.line + "\n" + self.lastline)
+        comment = self.alphaline.replace(alpha, icon[0][0].upper())
+        return (enum, comment, self.alphaline + "\n" + self.line + "\n" + self.lastline)

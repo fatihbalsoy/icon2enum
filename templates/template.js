@@ -1,5 +1,9 @@
+//
+//  HEAD_LINE
+//
+
 var template = {
-    // MARK: - HEAD_LINE
+    // MARK: - ALPHA_LINE
     THIS_LINE: "",
     LAST_LINE: ""
 };

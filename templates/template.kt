@@ -1,7 +1,10 @@
+//
+//  HEAD_LINE
+//
 
 enum class template(val hex : String) {
     
-    // MARK: - HEAD_LINE
+    // MARK: - ALPHA_LINE
     THIS_LINE(""),
     LAST_LINE("")
 }

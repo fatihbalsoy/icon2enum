@@ -1,8 +1,12 @@
+//
+//	HEAD_LINE
+//
+
 package templates;
 
 public enum template {
     
-    // MARK: - HEAD_LINE
+    // MARK: - ALPHA_LINE
     THIS_LINE(""),
     LAST_LINE("");
 

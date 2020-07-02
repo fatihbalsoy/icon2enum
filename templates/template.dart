@@ -1,6 +1,9 @@
+//
+//  HEAD_LINE
+//
 
 class template {
-    // MARK: - HEAD_LINE
+    // MARK: - ALPHA_LINE
     static var THIS_LINE = "";
     static var LAST_LINE = "";
 }
