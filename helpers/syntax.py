@@ -1,5 +1,5 @@
 import os.path
-from helpers.icon import *
+from helpers.icon import IconData
 
 current_dir = os.path.dirname(__file__)
 

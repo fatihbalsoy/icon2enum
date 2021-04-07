@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import urllib.request
+import json
 
 def help(meta_url, help):
 	html_page = urllib.request.urlopen(meta_url)
@@ -8,7 +9,7 @@ def help(meta_url, help):
 	meta = json.loads(str(soup))
 	
 	for icon in meta:
-		version = i["version"]
-		i_author = i["author"]
-		i_tags = i["tags"]
+		version = icon["version"]
+		i_author = icon["author"]
+		i_tags = icon["tags"]
 		i_tags_joined = " / ".join(i_tags).split(" / ")

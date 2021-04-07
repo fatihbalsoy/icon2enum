@@ -1,9 +1,7 @@
 from bs4 import BeautifulSoup
 import urllib.request
 import json
-from helpers.syntax import *
-from helpers.icon import *
-from helpers.help import *
+from helpers.syntax import Syntax
 from packages.progressbar import *
 import os.path
 import time
@@ -14,7 +12,7 @@ current_dir = os.path.dirname(__file__)
 url = "http://cdn.materialdesignicons.com/"
 github = "https://raw.githubusercontent.com/Templarian/MaterialDesign/master/meta.json"
 
-latest = "5.3.45"
+latest = "5.3.45" # TODO: Needs to be dynamic
 data_version = latest
 
 tags = []
@@ -83,10 +81,10 @@ def generateFile(syntax):
 	ext = syntax.getExtension()
 	filename = "MDIcons"
 	suffix = str("+" + data_version) if data_version != latest else ""
-	finalname = filename + suffix + "." + ext
+	finalname = "build/" + filename + suffix + "." + ext
 	
 	source_ext = ".json" if data_version == "master" else ".html"
-	with open("source" + source_ext, "w") as page:
+	with open("build/source" + source_ext, "w") as page:
 		page.write(str(soup))
 	with open(finalname, "w") as file:
 		cl = syntax.generateClass()
@@ -102,7 +100,7 @@ def generateFile(syntax):
 				firstChar = icon[0][0]
 			enums += enum[0] + "\n"
 			replacing = enum[2]
-			#time.sleep(0.00001)
+			# time.sleep(0.00001)
 			
 		final = cl.replace(replacing, enums)
 		file.write(final)
